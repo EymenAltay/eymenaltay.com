@@ -1,277 +1,239 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eymen Altay</title>
   <style>
     :root {
-      --accent: #00a8ff;
-      --soft: #e9f6ff;
-      --glass: rgba(255,255,255,0.06);
-      --glass2: rgba(255,255,255,0.10);
+      --mavi: #009dff;
+      --açıkmavi: #bfe6ff;
+      --beyaz: #ffffff;
     }
-    * { box-sizing: border-box; margin:0; padding:0; }
-    html, body { height: 100%; overflow: hidden; font-family: Inter, sans-serif; }
 
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
     body {
-      color: #fff;
-      transition: background-image 0.8s ease-in-out, color 0.6s ease;
+      overflow: hidden;
+      height: 100vh;
+      transition: background-image 1s ease-in-out, filter 1s ease-in-out;
       background-size: cover;
       background-position: center;
+      color: var(--beyaz);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
     body.day {
-      background-image: url("https://i.imgur.com/…(gündüz gemi resmi URL)"); /* senin seçtiğin gündüz gemi resmi */
+      background-image: url("https://upload.wikimedia.org/wikipedia/commons/8/8e/Oasis_of_the_Seas_%282%29.jpg");
+      filter: blur(2px) brightness(0.9);
     }
     body.night {
-      background-image: url("https://i.imgur.com/…(gece gemi resmi URL)"); /* gece gemi resmi URL */
+      background-image: url("https://upload.wikimedia.org/wikipedia/commons/0/0e/Oasis_of_the_Seas_at_night.JPG");
+      filter: blur(2px) brightness(0.6);
     }
 
-    /* LOADER */
+    h1 {
+      font-size: 3rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    }
+    p {
+      margin-top: 10px;
+      color: #e3f4ff;
+    }
+
+    /* Yükleme ekranı */
     #loader {
-      position: fixed; inset:0;
-      display: flex; flex-direction: column; align-items:center; justify-content:center;
-      background: rgba(0,0,0,0.8);
-      z-index: 9999;
-      color: #e9f6ff;
+      position: fixed;
+      inset: 0;
+      background: #00162b;
+      color: var(--beyaz);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      z-index: 999;
     }
-    .loader-waves { display: flex; gap: 6px; align-items: flex-end; }
-    .loader-waves .bar {
-      width: 8px; height: 48px; background: var(--accent);
-      border-radius: 6px;
-      animation: bar 1.05s ease-in-out infinite;
+    .wave {
+      width: 8px;
+      height: 40px;
+      background: var(--mavi);
+      margin: 0 4px;
+      border-radius: 4px;
+      display: inline-block;
+      animation: wave 1s ease-in-out infinite;
     }
-    .loader-waves .bar:nth-child(2) { animation-delay: -0.9s; }
-    .loader-waves .bar:nth-child(3) { animation-delay: -0.75s; }
-    .loader-waves .bar:nth-child(4) { animation-delay: -0.6s; }
-    .loader-waves .bar:nth-child(5) { animation-delay: -0.45s; }
-    @keyframes bar {
-      0%, 40%, 100% { transform: scaleY(0.35); }
+    .wave:nth-child(2) { animation-delay: 0.1s; }
+    .wave:nth-child(3) { animation-delay: 0.2s; }
+    .wave:nth-child(4) { animation-delay: 0.3s; }
+    .wave:nth-child(5) { animation-delay: 0.4s; }
+
+    @keyframes wave {
+      0%, 40%, 100% { transform: scaleY(0.3); }
       20% { transform: scaleY(1); }
     }
 
-    .container {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      z-index: 2;
-    }
-    h1 { font-size: clamp(28px, 4vw, 44px); }
-    .subtitle { margin-top: 8px; color: rgba(255,255,255,0.85); }
-
+    /* Sosyal medya ikonları */
     .socials {
       position: fixed;
-      left: 50%; bottom: 28px;
+      bottom: 30px;
+      left: 50%;
       transform: translateX(-50%);
       display: flex;
-      gap: 12px;
-      z-index: 4;
-    }
-    .socials a {
-      width: 52px; height: 52px;
-      border-radius: 999px;
-      background: var(--glass);
-      display: inline-flex; align-items: center; justify-content: center;
-      transition: transform .18s, background .18s;
-    }
-    .socials a:hover {
-      transform: translateY(-4px);
-      background: var(--glass2);
-    }
-    .socials img {
-      width: 24px; height: 24px;
-      object-fit: contain;
-    }
-
-    .side-menu {
-      position: fixed; right: 22px; top: 50%;
-      transform: translateY(-50%);
-      display: flex; flex-direction: column; gap: 14px;
+      gap: 20px;
       z-index: 5;
     }
-    .menu-btn {
-      width: 56px; height: 56px;
-      background: var(--glass);
-      border: none; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
+    .socials a img {
+      width: 32px;
+      height: 32px;
+      filter: brightness(1) invert(1);
+      transition: transform 0.3s ease;
+    }
+    .socials a:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Menü */
+    .menu {
+      position: fixed;
+      top: 50%;
+      right: 25px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 5;
+    }
+    .menu button {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: transform .18s, background .18s;
+      transition: all 0.3s ease;
     }
-    .menu-btn:hover {
-      transform: scale(1.04);
-      background: var(--glass2);
+    .menu button:hover {
+      background: rgba(255,255,255,0.2);
+      transform: scale(1.05);
     }
-    .menu-btn svg {
-      width: 26px; height: 26px;
-      stroke: currentColor; fill: none; stroke-width: 1.6;
+
+    /* Pencere */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      background: rgba(255,255,255,0.95);
+      color: #002;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      display: none;
+      z-index: 10;
+      transition: all 0.4s ease;
+      max-width: 400px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    }
+    .popup.show {
+      display: block;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .popup h2 {
+      margin-bottom: 10px;
+      color: #001b3f;
+    }
+    .close {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 20px;
+      background: none;
+      border: none;
+      color: #000;
+      cursor: pointer;
+    }
+
+    /* Tema butonu */
+    .theme-toggle {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      padding: 10px 14px;
+      border-radius: 50%;
+      font-size: 20px;
       color: #fff;
+      cursor: pointer;
+      z-index: 5;
+      transition: 0.3s ease;
     }
-
-    .modal-backdrop {
-      position: fixed; inset:0; background: rgba(2,6,23,0.6);
-      display: none; align-items: center; justify-content: center;
-      z-index: 10001;
+    .theme-toggle:hover {
+      background: rgba(255,255,255,0.4);
     }
-    .panel {
-      width: clamp(300px,40vw,720px);
-      max-height: 80vh;
-      background: #fff; color: #001;
-      border-radius: 12px; padding: 22px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-      transform: translateY(18px) scale(0.98);
-      opacity: 0;
-      transition: all .32s cubic-bezier(.2,.9,.3,1);
-      overflow: auto;
-    }
-    .panel.show {
-      transform: translateY(0) scale(1);
-      opacity: 1;
-    }
-    .panel h3 { margin-bottom: 10px; }
-    .panel p { color: #333; line-height: 1.45; }
-
-    .close-x {
-      position: absolute; right: 12px; top: 10px;
-      background: transparent; border:0; font-size:20px;
-      cursor: pointer; color: #333;
-    }
-
-    .overlay {
-      position: fixed; inset:0;
-      display: none; align-items: center; justify-content: center;
-      background: rgba(0,0,0,0.6);
-      z-index: 10000;
-    }
-    .overlay .panel {
-      max-width: 420px;
-    }
-
   </style>
 </head>
+
 <body class="day">
-
-  <!-- BACKGROUND & LOADER -->
   <div id="loader">
-    <div class="loader-waves">
-      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    <div style="display:flex;gap:5px;margin-bottom:10px;">
+      <div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="wave"></div>
     </div>
-    <div style="margin-top:8px; font-weight:600;">Gemiye hoşgeldiniz...</div>
+    <p>Gemiye hoşgeldiniz...</p>
   </div>
 
-  <div class="container">
-    <h1>Eymen Altay</h1>
-    <div class="subtitle">İzmir / Türkiye</div>
+  <h1>Eymen Altay</h1>
+  <p>İzmir / Türkiye</p>
 
-    <nav class="socials">
-      <a href="https://www.instagram.com/eymen.altay/" target="_blank">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/instagram.svg" alt="Instagram">
-      </a>
-      <a href="https://www.youtube.com/@eymenaltay8196" target="_blank">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/youtube.svg" alt="YouTube">
-      </a>
-      <a href="#" id="emailIcon">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/gmail.svg" alt="Email">
-      </a>
-      <a href="https://open.spotify.com/user/31mdrrgk3d4mjmi5yrmol3dqujey?si=52e3818d1a5f405f" target="_blank">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/spotify.svg" alt="Spotify">
-      </a>
-      <a href="https://discord.com/channels/@dr.peroxide" target="_blank">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/discord.svg" alt="Discord">
-      </a>
-      <a href="https://steamcommunity.com/id/doctorperoxide/" target="_blank">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/steam.svg" alt="Steam">
-      </a>
-    </nav>
+  <div class="socials">
+    <a href="https://www.instagram.com/eymen.altay/" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/instagram.svg"></a>
+    <a href="https://www.youtube.com/@eymenaltay8196" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/youtube.svg"></a>
+    <a href="#" id="email"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/gmail.svg"></a>
+    <a href="https://open.spotify.com/user/31mdrrgk3d4mjmi5yrmol3dqujey" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/spotify.svg"></a>
+    <a href="https://discord.com/channels/@dr.peroxide" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/discord.svg"></a>
+    <a href="https://steamcommunity.com/id/doctorperoxide/" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/steam.svg"></a>
   </div>
 
-  <aside class="side-menu">
-    <button class="menu-btn" data-panel="cv" title="Özgeçmiş">
-      <svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="12" rx="2"></rect><path d="M8 7V5h8v2"></path></svg>
-    </button>
-    <button class="menu-btn" data-panel="career" title="Kariyer Planlaması">
-      <svg viewBox="0 0 24 24"><path d="M12 2v6"></path><circle cx="12" cy="14" r="7"></circle></svg>
-    </button>
-    <button class="menu-btn" data-panel="hobbies" title="Hobiler">
-      <svg viewBox="0 0 24 24"><path d="M3 12c4-4 8 0 11 0s6-5 7-5"></path></svg>
-    </button>
-  </aside>
-
-  <div class="modal-backdrop" id="modalBackdrop">
-    <div class="panel" id="panel">
-      <button class="close-x" id="closePanel">✕</button>
-      <h3 id="panelTitle">Başlık</h3>
-      <p id="panelBody">Yakında doldurulacak.</p>
-    </div>
+  <div class="menu">
+    <button onclick="openPopup('Özgeçmiş')">🧭</button>
+    <button onclick="openPopup('Kariyer Planlaması')">⚓</button>
+    <button onclick="openPopup('Hobiler')">🌊</button>
   </div>
 
-  <div class="overlay" id="emailBackdrop">
-    <div class="panel">
-      <button class="close-x" onclick="closeEmail()">✕</button>
-      <h3>İletişim</h3>
-      <p>Yakında doldurulacak.</p>
-    </div>
+  <button class="theme-toggle" id="toggleTheme">🌙</button>
+
+  <div class="popup" id="popup">
+    <button class="close" onclick="closePopup()">×</button>
+    <h2 id="popupTitle"></h2>
+    <p>Yakında doldurulacak.</p>
   </div>
 
-<script>
-  // Loader logic
-  const loader = document.getElementById('loader');
-  let loaded = false;
-  function hideLoader(){ if(loaded) return; loaded = true; loader.style.transition='opacity .45s'; loader.style.opacity='0'; setTimeout(()=>loader.remove(), 500); }
-  window.addEventListener('load', ()=> setTimeout(hideLoader, 300));
-  setTimeout(()=> { if(!loaded) hideLoader(); }, 7000);
-
-  // Theme toggle
-  function toggleTheme(){
-    document.body.classList.toggle('night');
-  }
-  // Example: toggle via double-click, ya da başka tuş
-  document.addEventListener('dblclick', toggleTheme);
-
-  // Panel logic
-  const modalBackdrop = document.getElementById('modalBackdrop');
-  const panel = document.getElementById('panel');
-  const panelTitle = document.getElementById('panelTitle');
-  const panelBody = document.getElementById('panelBody');
-  document.querySelectorAll('.menu-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const key = btn.getAttribute('data-panel');
-      if(key==='cv') panelTitle.textContent='Özgeçmiş';
-      else if(key==='career') panelTitle.textContent='Kariyer Planlaması';
-      else if(key==='hobbies') panelTitle.textContent='Hobiler';
-      panelBody.textContent = 'Yakında doldurulacak.';
-      openPanel();
+  <script>
+    const loader = document.getElementById('loader');
+    window.addEventListener('load', () => {
+      setTimeout(() => loader.style.opacity = '0', 1000);
+      setTimeout(() => loader.remove(), 1600);
     });
-  });
-  function openPanel(){
-    modalBackdrop.style.display = 'flex';
-    setTimeout(()=> panel.classList.add('show'), 10);
-  }
-  function closePanel(){
-    panel.classList.remove('show');
-    setTimeout(()=> modalBackdrop.style.display='none', 300);
-  }
-  document.getElementById('closePanel').addEventListener('click', closePanel);
-  modalBackdrop.addEventListener('click', (e)=> { if(e.target===modalBackdrop) closePanel(); });
 
-  // Email popup
-  const emailIcon = document.getElementById('emailIcon');
-  const emailBackdrop = document.getElementById('emailBackdrop');
-  emailIcon.addEventListener('click', e=>{
-    e.preventDefault();
-    emailBackdrop.style.display='flex';
-  });
-  emailBackdrop.addEventListener('click', e=>{
-    if(e.target===emailBackdrop) closeEmail();
-  });
-  function closeEmail(){
-    emailBackdrop.style.display = 'none';
-  }
+    const popup = document.getElementById('popup');
+    const popupTitle = document.getElementById('popupTitle');
+    function openPopup(title) {
+      popupTitle.textContent = title;
+      popup.classList.add('show');
+    }
+    function closePopup() {
+      popup.classList.remove('show');
+    }
 
-</script>
+    const body = document.body;
+    const toggleTheme = document.getElementById('toggleTheme');
+    toggleTheme.addEventListener('click', () => {
+      body.classList.toggle('night');
+      toggleTheme.textContent = body.classList.contains('night') ? '☀️' : '🌙';
+    });
+  </script>
 </body>
 </html>
