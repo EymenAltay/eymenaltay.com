@@ -5,73 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Eymen Altay</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * {margin:0;padding:0;box-sizing:border-box;}
     body {
       font-family: "Poppins", sans-serif;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       color: white;
       text-align: center;
-      background: linear-gradient(to top, #001f3f, #0077b6);
-      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      transition: background 1s ease, color 0.5s ease;
     }
 
-    /* Dalga animasyonu */
-    .waves {
+    /* Arka plan video */
+    .video-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .video-bg iframe {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 200%;
-      height: 100px;
-      background: rgba(255,255,255,0.1);
-      animation: moveWaves 8s linear infinite;
-      border-radius: 100%;
-      transform: translateX(-25%);
+      top: 50%; left: 50%;
+      width: 120%; height: 120%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
     }
 
-    .waves:nth-child(2) {
-      animation-delay: -2s;
-      opacity: 0.6;
+    /* Gece modu */
+    body.night {
+      background: linear-gradient(to top, #000814, #001d3d);
+      color: #dce2f0;
     }
+    body.night .popup {background: #101820; color: #fff;}
+    body.night .popup button {background: #00b4d8;}
 
-    .waves:nth-child(3) {
-      animation-delay: -4s;
-      opacity: 0.3;
-    }
-
-    @keyframes moveWaves {
-      0% { transform: translateX(-25%); }
-      100% { transform: translateX(-75%); }
-    }
-
+    /* Başlıklar */
     h1 {
       font-size: 3rem;
       letter-spacing: 2px;
+      margin-top: 100px;
+      text-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
-
     p {
-      margin-top: 10px;
       font-size: 1.2rem;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
 
+    /* Sosyal bağlantılar */
     .socials {
-      margin-top: 40px;
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
+      flex-wrap: wrap;
       gap: 20px;
-      z-index: 2;
+      margin-bottom: 20px;
     }
-
     .socials a {
       width: 50px;
       height: 50px;
@@ -82,67 +70,134 @@
       border-radius: 50%;
       transition: 0.3s;
     }
-
     .socials a:hover {
       background: rgba(255,255,255,0.4);
       transform: scale(1.1);
     }
+    .socials img {width: 28px;height: 28px;filter: invert(1);}
 
-    .socials img {
-      width: 28px;
-      height: 28px;
-      filter: invert(1);
-    }
-
+    /* Footer */
     footer {
       position: absolute;
       bottom: 10px;
+      width: 100%;
       font-size: 0.9rem;
       color: rgba(255,255,255,0.7);
+      text-shadow: 0 0 5px rgba(0,0,0,0.5);
     }
+
+    /* Popup e-posta */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    .popup {
+      background: #fff;
+      color: #000;
+      padding: 25px 40px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 300px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+    .popup button {
+      margin-top: 15px;
+      padding: 8px 16px;
+      background: #0077b6;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Instagram kutusu */
+    .insta-box {
+      position: absolute;
+      right: 30px; top: 30px;
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      border-radius: 12px;
+      backdrop-filter: blur(5px);
+    }
+    iframe.instagram-media {
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    @media (max-width: 768px) {.insta-box {display:none;}}
+
+    /* Tema butonu */
+    .theme-toggle {
+      position: absolute;
+      top: 20px; left: 20px;
+      background: rgba(0,0,0,0.4);
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .theme-toggle:hover {background: rgba(255,255,255,0.2);}
+
+    /* Loading ekranı */
+    .loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #001f3f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+    }
+    .wave {
+      width: 10px;
+      height: 50px;
+      background: white;
+      margin: 3px;
+      display: inline-block;
+      animation: wave 1.2s infinite ease-in-out;
+    }
+    @keyframes wave {
+      0%, 40%, 100% {transform: scaleY(0.4);}
+      20% {transform: scaleY(1);}
+    }
+    .wave:nth-child(2){animation-delay: -1.1s;}
+    .wave:nth-child(3){animation-delay: -1s;}
+    .wave:nth-child(4){animation-delay: -0.9s;}
+    .wave:nth-child(5){animation-delay: -0.8s;}
   </style>
 </head>
 <body>
-  <h1>Eymen Altay</h1>
-  <p>İzmir / Türkiye</p>
-
-  <div class="socials">
-    <a href="https://www.instagram.com/eymen.altay/" target="_blank">
-      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/instagram.svg" alt="Instagram">
-    </a>
-
-    <a href="https://www.youtube.com/@eymenaltay8196" target="_blank">
-      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/youtube.svg" alt="YouTube">
-    </a>
-
-    <a href="#" onclick="contactMe()">
-      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/gmail.svg" alt="Email">
-    </a>
-
-    <a href="https://open.spotify.com/user/31mdrrgk3d4mjmi5yrmol3dqujey?si=52e3818d1a5f405f" target="_blank">
-      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/spotify.svg" alt="Spotify">
-    </a>
-
-    <a href="#" title="Discord: dr.peroxide">
-      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/discord.svg" alt="Discord">
-    </a>
-
-    <a href="https://steamcommunity.com/id/doctorperoxide/" target="_blank">
-      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/steam.svg" alt="Steam">
-    </a>
+  <!-- Loading ekranı -->
+  <div class="loader" id="loader">
+    <div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+    </div>
+    <p style="margin-top:20px;">Yükleniyor...</p>
   </div>
 
-  <footer>© 2025 Eymen Altay</footer>
+  <!-- Tema değiştirici -->
+  <button class="theme-toggle" onclick="toggleTheme()">🌙 / ☀️</button>
 
-  <div class="waves"></div>
-  <div class="waves"></div>
-  <div class="waves"></div>
+  <!-- Video arka plan -->
+  <div class="video-bg">
+    <iframe id="bgVideo"
+      src="https://www.youtube.com/embed/wqH_2z21zEc?autoplay=1&mute=1&loop=1&playlist=wqH_2z21zEc&controls=0&showinfo=0&modestbranding=1"
+      frameborder="0"
+      allow="autoplay; fullscreen"
+      allowfullscreen>
+    </iframe>
+  </div>
 
-  <script>
-    function contactMe() {
-      alert("Benimle iletişime geçin:\ney­menaltay28@gmail.com\nİzmir / Türkiye");
-      window.location.href = "mailto:eymenaltay28@gmail.com";
-    }
-  </script>
-</body>
-</html>
+  <h1
