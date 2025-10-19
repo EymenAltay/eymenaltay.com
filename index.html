@@ -15,24 +15,16 @@
     body {
       overflow: hidden;
       height: 100vh;
-      transition: background-image 1s ease-in-out, filter 1s ease-in-out;
+      background-image: url("https://upload.wikimedia.org/wikipedia/commons/8/8e/Oasis_of_the_Seas_%282%29.jpg");
       background-size: cover;
       background-position: center;
+      filter: blur(2px) brightness(0.9);
       color: var(--beyaz);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-    }
-
-    body.day {
-      background-image: url("https://upload.wikimedia.org/wikipedia/commons/8/8e/Oasis_of_the_Seas_%282%29.jpg");
-      filter: blur(2px) brightness(0.9);
-    }
-    body.night {
-      background-image: url("https://upload.wikimedia.org/wikipedia/commons/0/0e/Oasis_of_the_Seas_at_night.JPG");
-      filter: blur(2px) brightness(0.6);
     }
 
     h1 {
@@ -155,29 +147,10 @@
       color: #000;
       cursor: pointer;
     }
-
-    /* Tema butonu */
-    .theme-toggle {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: rgba(255,255,255,0.2);
-      border: none;
-      padding: 10px 14px;
-      border-radius: 50%;
-      font-size: 20px;
-      color: #fff;
-      cursor: pointer;
-      z-index: 5;
-      transition: 0.3s ease;
-    }
-    .theme-toggle:hover {
-      background: rgba(255,255,255,0.4);
-    }
   </style>
 </head>
 
-<body class="day">
+<body>
   <div id="loader">
     <div style="display:flex;gap:5px;margin-bottom:10px;">
       <div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="wave"></div>
@@ -203,8 +176,6 @@
     <button onclick="openPopup('Hobiler')">🌊</button>
   </div>
 
-  <button class="theme-toggle" id="toggleTheme">🌙</button>
-
   <div class="popup" id="popup">
     <button class="close" onclick="closePopup()">×</button>
     <h2 id="popupTitle"></h2>
@@ -227,13 +198,6 @@
     function closePopup() {
       popup.classList.remove('show');
     }
-
-    const body = document.body;
-    const toggleTheme = document.getElementById('toggleTheme');
-    toggleTheme.addEventListener('click', () => {
-      body.classList.toggle('night');
-      toggleTheme.textContent = body.classList.contains('night') ? '☀️' : '🌙';
-    });
   </script>
 </body>
 </html>
