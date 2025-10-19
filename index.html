@@ -1,211 +1,243 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Eymen Altay</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{
-      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-      color:#fff;
-      overflow:hidden;
-      transition: background 0.6s ease, color 0.3s ease;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Eymen Altay</title>
+<style>
+  :root{
+    --accent:#00a8ff;
+    --soft:#e9f6ff;
+    --glass: rgba(255,255,255,0.06);
+    --glass-2: rgba(255,255,255,0.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;font-family:Inter,Ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:#031022;color:#fff}
 
-    /* LOADING */
-    #loader {
-      position:fixed;inset:0;display:flex;flex-direction:column;
-      justify-content:center;align-items:center;background:#001f3f;z-index:9999;
-      gap:18px;
-    }
-    .loader-waves{display:flex;gap:6px}
-    .loader-waves .bar{
-      width:8px;height:48px;background:#00bfff;border-radius:6px;
-      animation:bar 1.05s ease-in-out infinite;
-    }
-    .loader-waves .bar:nth-child(2){animation-delay:-0.9s}
-    .loader-waves .bar:nth-child(3){animation-delay:-0.75s}
-    .loader-waves .bar:nth-child(4){animation-delay:-0.6s}
-    .loader-waves .bar:nth-child(5){animation-delay:-0.45s}
-    @keyframes bar{0%,40%,100%{transform:scaleY(0.35)}20%{transform:scaleY(1)}}
+  /* FULLSCREEN BACKGROUND IMAGE + BLUR + TINT */
+  .bg-wrap{position:fixed;inset:0;z-index:-2;overflow:hidden}
+  .bg-img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    transform:scale(1.05);
+    filter:blur(6px) brightness(0.7) saturate(1.05);
+  }
+  .bg-tint{
+    position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,72,120,0.28), rgba(0,30,60,0.55));mix-blend-mode:overlay;
+  }
 
-    /* VIDEO BACKGROUND */
-    .video-bg{position:fixed;inset:0;z-index:-1;overflow:hidden}
-    .video-bg iframe{position:absolute;top:50%;left:50%;width:140%;height:140%;transform:translate(-50%,-50%);pointer-events:none}
+  /* LOADER */
+  #loader{
+    position:fixed;inset:0;display:flex;flex-direction:column;gap:18px;
+    justify-content:center;align-items:center;background:linear-gradient(180deg,#001428,#001b35);
+    z-index:9999;color:var(--soft)
+  }
+  .loader-waves{display:flex;gap:6px;align-items:end}
+  .loader-waves .bar{width:8px;height:48px;background:var(--accent);border-radius:6px;animation:bar 1.05s ease-in-out infinite}
+  .loader-waves .bar:nth-child(2){animation-delay:-0.9s}
+  .loader-waves .bar:nth-child(3){animation-delay:-0.75s}
+  .loader-waves .bar:nth-child(4){animation-delay:-0.6s}
+  .loader-waves .bar:nth-child(5){animation-delay:-0.45s}
+  @keyframes bar{0%,40%,100%{transform:scaleY(0.35)}20%{transform:scaleY(1)}}
 
-    /* CONTENT */
-    .wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
-    h1{font-size:3rem;letter-spacing:1px;text-shadow:0 6px 18px rgba(0,0,0,0.5)}
-    .sub{margin-top:8px;color:rgba(255,255,255,0.85);font-size:1.05rem}
+  /* MAIN CONTENT */
+  .container{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:36px;position:relative;z-index:2}
+  h1{font-size:clamp(28px,4vw,44px);letter-spacing:1px;color:var(--soft)}
+  .subtitle{margin-top:8px;color:rgba(255,255,255,0.86);font-size:1rem}
 
-    /* SOCIALS */
-    .socials{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;z-index:2}
-    .socials a{width:52px;height:52px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.12);transition:transform .18s ease,background .18s}
-    .socials a:hover{transform:scale(1.08);background:rgba(255,255,255,0.24)}
-    .socials img{width:26px;height:26px;filter:invert(1)}
+  /* SOCIAL ICONS BOTTOM CENTER */
+  .socials{position:fixed;left:50%;transform:translateX(-50%);bottom:28px;display:flex;gap:12px;z-index:4}
+  .socials a{width:52px;height:52px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:var(--glass);backdrop-filter: blur(4px);transition:transform .18s,background .18s}
+  .socials a:hover{transform:translateY(-4px);background:var(--glass-2)}
+  .socials svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.6;color:#fff;filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4))}
 
-    footer{position:fixed;left:0;right:0;bottom:10px;text-align:center;color:rgba(255,255,255,0.75);font-size:0.9rem;z-index:2}
+  /* RIGHT SIDEBAR ICON MENU */
+  .side-menu{position:fixed;right:22px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px;z-index:5}
+  .menu-btn{
+    width:56px;height:56px;border-radius:12px;background:var(--glass);display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:transform .18s, background .18s;
+  }
+  .menu-btn:hover{transform:scale(1.04);background:var(--glass-2)}
+  .menu-btn svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.6;color:#fff}
 
-    /* POPUP */
-    .overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:10000}
-    .popup{background:#fff;color:#000;padding:22px;border-radius:12px;max-width:360px;width:88%;text-align:center;box-shadow:0 12px 40px rgba(2,6,23,0.6)}
-    .popup button{margin-top:12px;padding:9px 14px;border-radius:8px;border:0;background:#0077b6;color:#fff;cursor:pointer}
+  /* MODAL / PANEL */
+  .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:10001}
+  .panel{
+    width:clamp(300px,40vw,720px);max-height:80vh;background:linear-gradient(180deg,rgba(255,255,255,0.98),#fff);
+    color:#001;padding:22px;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.45);transform:translateY(18px) scale(.98);opacity:0;transition:all .32s cubic-bezier(.2,.9,.3,1);
+    overflow:auto;
+  }
+  .panel.show{transform:translateY(0) scale(1);opacity:1}
+  .panel h3{margin-bottom:10px;font-size:1.2rem}
+  .panel p{color:#333;line-height:1.45}
 
-    /* THEME BUTTON */
-    .theme-toggle{position:fixed;top:18px;left:18px;padding:8px 12px;border-radius:10px;border:0;background:rgba(0,0,0,0.35);color:#fff;cursor:pointer;z-index:20}
+  /* small close btn */
+  .close-x{position:absolute;right:12px;top:10px;background:transparent;border:0;font-size:20px;cursor:pointer;color:#333}
 
-    /* INSTAGRAM BOX */
-    .insta-box{position:fixed;right:24px;top:20px;width:340px;border-radius:12px;padding:8px;background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.15));backdrop-filter:blur(6px);z-index:5}
-    .insta-box .title{color:#fff;font-weight:600;margin-bottom:8px;text-align:left;padding-left:8px}
-    @media(max-width:920px){.insta-box{display:none}} /* mobilde gizle */
-
-    /* NIGHT MODE STYLES */
-    body.night{color:#dbeafe}
-    body.night .theme-toggle{background:rgba(255,255,255,0.06)}
-
-  </style>
+  /* RESPONSIVE */
+  @media (max-width:900px){
+    .side-menu{right:12px}
+    .socials{bottom:18px}
+    .panel{width:90vw}
+  }
+  @media (max-width:560px){
+    .socials a{width:44px;height:44px}
+    .menu-btn{width:48px;height:48px}
+  }
+</style>
 </head>
 <body>
+
+  <!-- BACKGROUND -->
+  <div class="bg-wrap" aria-hidden="true">
+    <!-- Kullanıcı verdiği Google yönlendirme URL'si yerine doğrudan resim kullan; eğer yüklenmez, değiştir -->
+    <img class="bg-img" src="https://www.napa.fi/wp-content/uploads/2022/10/Icon-of-the-Seas-ship-2-1536x864.jpg" alt="Deniz gemisi arkaplan">
+    <div class="bg-tint"></div>
+  </div>
+
   <!-- LOADER -->
-  <div id="loader" aria-hidden="true">
-    <div class="loader-waves">
+  <div id="loader" role="status" aria-live="polite">
+    <div class="loader-waves" aria-hidden="true">
       <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
     </div>
-    <div style="color:rgba(255,255,255,0.9);font-weight:600">Site yükleniyor...</div>
+    <div style="font-weight:700;margin-top:8px">Gemiye hoşgeldiniz...</div>
   </div>
 
-  <!-- THEME TOGGLE -->
-  <button class="theme-toggle" id="themeToggle" title="Gece / Gündüz">🌙 / ☀️</button>
-
-  <!-- VIDEO BG -->
-  <div class="video-bg" id="videoBg">
-    <iframe id="bgVideo" src="https://www.youtube.com/embed/wqH_2z21zEc?autoplay=1&mute=1&loop=1&playlist=wqH_2z21zEc&controls=0&iv_load_policy=3&modestbranding=1"
-      frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-  </div>
-
-  <!-- INSTAGRAM BOX (otomatik embed için buraya servisin kodunu yapıştır) -->
-  <div class="insta-box" id="instaBox">
-    <div class="title">Instagram - Son Gönderi</div>
-    <!-- EMBEDSOCIAL INSERT HERE -->
-    <!-- EmbedSocial veya benzeri servisten aldığın embed kodunu buraya yapıştır. -->
-    <div style="color:rgba(255,255,255,0.8);padding:12px;font-size:0.95rem">Embed kodu yapıştırılmadı. EmbedSocial'dan aldığın kodu buraya yerleştir.</div>
-  </div>
-
-  <div class="wrap">
+  <!-- MAIN -->
+  <main class="container" role="main">
     <h1>Eymen Altay</h1>
-    <div class="sub">İzmir / Türkiye</div>
+    <div class="subtitle">İzmir / Türkiye</div>
 
-    <div class="socials" aria-hidden="false">
-      <a href="https://www.instagram.com/eymen.altay/" target="_blank" title="Instagram">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/instagram.svg" alt="Instagram">
+    <!-- socials (ikonlar minimal stroke SVG) -->
+    <nav class="socials" aria-label="Sosyal Medya">
+      <a href="https://www.instagram.com/eymen.altay/" target="_blank" title="Instagram" aria-label="Instagram">
+        <!-- Instagram stroke icon -->
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><circle cx="17.5" cy="6.5" r="0.5"></circle></svg>
       </a>
 
-      <a href="https://www.youtube.com/@eymenaltay8196" target="_blank" title="YouTube">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/youtube.svg" alt="YouTube">
+      <a href="https://www.youtube.com/@eymenaltay8196" target="_blank" title="YouTube" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 7.6s-.2-1.6-.8-2.3c-.7-.9-1.6-.9-2-.9C15.6 4 12 4 12 4h0s-3.6 0-6.9.3c-.4 0-1.3 0-2 .9C2.2 6 2 7.6 2 7.6S2 9.4 2 11.3v1.4c0 1.9 0 3.7 0 3.7s.2 1.6.8 2.3c.7.9 1.6.9 2 .9 3.3.3 6.9.3 6.9.3s3.6 0 6.9-.3c.4 0 1.3 0 2-.9.6-.7.8-2.3.8-2.3s0-1.8 0-3.7v-1.4c0-1.9 0-3.7 0-3.7z"></path><polygon points="10 15 15 12 10 9 10 15"></polygon></svg>
       </a>
 
-      <a href="#" id="emailBtn" title="E-posta">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/gmail.svg" alt="Email">
+      <a href="#" id="emailIcon" title="E-posta" aria-label="E-posta">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
       </a>
 
-      <a href="https://open.spotify.com/user/31mdrrgk3d4mjmi5yrmol3dqujey?si=52e3818d1a5f405f" target="_blank" title="Spotify">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/spotify.svg" alt="Spotify">
+      <a href="https://open.spotify.com/user/31mdrrgk3d4mjmi5yrmol3dqujey?si=52e3818d1a5f405f" target="_blank" title="Spotify" aria-label="Spotify">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.1A9 9 0 1 1 3 6.3"></path><path d="M8 10.6c2.5 1.5 6.5 1.9 9 0.9"></path><path d="M7 14.4c2 1 5.5 1.3 7.5 0.7"></path></svg>
       </a>
 
-      <a href="https://discord.com/channels/@dr.peroxide" target="_blank" title="Discord">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/discord.svg" alt="Discord">
+      <a href="https://discord.com/channels/@dr.peroxide" target="_blank" title="Discord" aria-label="Discord">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 9.5c-.6 0-1 .5-1 1.1s.4 1.1 1 1.1 1-.5 1-1.1-.4-1.1-1-1.1zM16.5 9.5c-.6 0-1 .5-1 1.1s.4 1.1 1 1.1 1-.5 1-1.1-.4-1.1-1-1.1z"></path><path d="M21 5s-1.2-1.9-4-3c0 0-.3 0-.8.5-1.6 1.2-3 1.8-4.2 2.2"></path><path d="M3 5s1.2-1.9 4-3c0 0 .3 0 .8.5 1.6 1.2 3 1.8 4.2 2.2"></path></svg>
       </a>
 
-      <a href="https://steamcommunity.com/id/doctorperoxide/" target="_blank" title="Steam">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/steam.svg" alt="Steam">
+      <a href="https://steamcommunity.com/id/doctorperoxide/" target="_blank" title="Steam" aria-label="Steam">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9.5" cy="14.5" r="2.2"></circle><path d="M13.2 12.1l6.3-3.8"></path><path d="M7.3 13.6l6 3.6"></path></svg>
       </a>
+    </nav>
+  </main>
+
+  <!-- RIGHT SIDE ICON MENU -->
+  <aside class="side-menu" aria-label="Hızlı Menü">
+    <button class="menu-btn" data-panel="cv" title="Özgeçmiş" aria-label="Özgeçmiş">
+      <!-- minimalist user/briefcase icon -->
+      <svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="12" rx="2"></rect><path d="M8 7V5h8v2"></path></svg>
+    </button>
+
+    <button class="menu-btn" data-panel="career" title="Kariyer Planlaması" aria-label="Kariyer Planlaması">
+      <!-- minimalist target/flag -->
+      <svg viewBox="0 0 24 24"><path d="M12 2v6"></path><circle cx="12" cy="14" r="7"></circle></svg>
+    </button>
+
+    <button class="menu-btn" data-panel="hobbies" title="Hobiler" aria-label="Hobiler">
+      <!-- minimalist wave / hobby icon -->
+      <svg viewBox="0 0 24 24"><path d="M3 12c4-4 8 0 11 0s6-5 7-5"></path></svg>
+    </button>
+  </aside>
+
+  <!-- PANEL MODAL -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-hidden="true">
+    <div class="panel" id="panel">
+      <button class="close-x" id="closePanel" aria-label="Kapat">✕</button>
+      <h3 id="panelTitle">Başlık</h3>
+      <p id="panelBody">Yakında doldurulacak.</p>
     </div>
   </div>
 
-  <footer>© 2025 Eymen Altay</footer>
-
-  <!-- EMAIL POPUP -->
-  <div class="overlay" id="overlay">
-    <div class="popup">
+  <!-- EMAIL POPUP (center modal) -->
+  <div class="modal-backdrop" id="emailBackdrop" aria-hidden="true">
+    <div class="panel" style="max-width:420px;">
+      <button class="close-x" onclick="closeEmail()" aria-label="Kapat">✕</button>
       <h3>Benimle iletişime geçin</h3>
       <p><strong>eymenaltay28@gmail.com</strong></p>
       <p>İzmir / Türkiye</p>
-      <div style="display:flex;gap:8px;justify-content:center;margin-top:8px">
-        <button id="mailCompose">E-posta Gönder</button>
-        <button onclick="closePopup()">Kapat</button>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
+        <button onclick="composeMail()" style="padding:8px 12px;border-radius:8px;border:0;background:var(--accent);color:#001">E-posta Gönder</button>
       </div>
     </div>
   </div>
 
 <script>
-  // --- LOADER: Fallback ile güvenli şekilde kaldırma ---
+  // LOADER: Hide on load or after fallback
   const loader = document.getElementById('loader');
-  let loaderFinished = false;
-
-  function hideLoader() {
-    if(loaderFinished) return;
-    loaderFinished = true;
+  let loaderDone = false;
+  function hideLoader(){
+    if(loaderDone) return;
+    loaderDone = true;
     loader.style.transition = 'opacity .45s ease';
     loader.style.opacity = '0';
     setTimeout(()=> loader.remove(), 500);
   }
+  window.addEventListener('load', ()=> setTimeout(hideLoader, 300));
+  setTimeout(()=> { if(!loaderDone) { console.warn('loader fallback'); hideLoader(); } }, 7000);
 
-  // 1) Window load (en güvenli)
-  window.addEventListener('load', ()=> {
-    // küçük gecikme ile daha yumuşak geçiş
-    setTimeout(hideLoader, 350);
+  // RIGHT-SIDE PANEL HANDLING
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const panel = document.getElementById('panel');
+  const panelTitle = document.getElementById('panelTitle');
+  const panelBody = document.getElementById('panelBody');
+  document.querySelectorAll('.menu-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const key = btn.getAttribute('data-panel');
+      if(key==='cv'){ panelTitle.textContent='Özgeçmiş'; }
+      else if(key==='career'){ panelTitle.textContent='Kariyer Planlaması'; }
+      else if(key==='hobbies'){ panelTitle.textContent='Hobiler'; }
+      panelBody.textContent = 'Yakında doldurulacak.';
+      openPanel();
+    });
   });
-
-  // 2) Eğer 7s içinde load olmuyorsa fallback ile gizle
-  setTimeout(()=> {
-    if(!loaderFinished) {
-      console.warn('Loader fallback aktifleştirildi.');
-      hideLoader();
-    }
-  }, 7000);
-
-  // --- THEME TOGGLE ---
-  const themeBtn = document.getElementById('themeToggle');
-  function toggleTheme(){
-    document.body.classList.toggle('night');
-    // istenirse localStorage ile kalıcı yapabilirsiniz:
-    localStorage.setItem('nightMode', document.body.classList.contains('night') ? '1' : '0');
+  function openPanel(){
+    modalBackdrop.style.display = 'flex';
+    // small timeout to trigger CSS transition
+    setTimeout(()=> panel.classList.add('show'), 10);
+    modalBackdrop.setAttribute('aria-hidden','false');
   }
-  // yüklenirken önceki tercihi uygula
-  if(localStorage.getItem('nightMode') === '1') document.body.classList.add('night');
+  function closePanel(){
+    panel.classList.remove('show');
+    setTimeout(()=> { modalBackdrop.style.display='none'; modalBackdrop.setAttribute('aria-hidden','true'); }, 300);
+  }
+  document.getElementById('closePanel').addEventListener('click', closePanel);
+  modalBackdrop.addEventListener('click', (e)=> { if(e.target===modalBackdrop) closePanel(); });
 
-  themeBtn.addEventListener('click', toggleTheme);
+  // EMAIL MODAL
+  const emailBtn = document.getElementById('emailIcon');
+  const emailBackdrop = document.getElementById('emailBackdrop');
+  function openEmail(){ emailBackdrop.style.display='flex'; emailBackdrop.setAttribute('aria-hidden','false'); setTimeout(()=> emailBackdrop.firstElementChild.classList.add('show'),10); }
+  function closeEmail(){ emailBackdrop.firstElementChild.classList.remove('show'); setTimeout(()=> { emailBackdrop.style.display='none'; emailBackdrop.setAttribute('aria-hidden','true'); },300); }
+  function composeMail(){ window.location.href = 'mailto:eymenaltay28@gmail.com?subject=Web%20sitesinden%20iletişim'; }
+  emailBtn.addEventListener('click',(e)=>{ e.preventDefault(); openEmail(); });
+  emailBackdrop.addEventListener('click',(e)=>{ if(e.target===emailBackdrop) closeEmail(); });
 
-  // --- EMAIL POPUP ---
-  const overlay = document.getElementById('overlay');
-  document.getElementById('emailBtn').addEventListener('click', (e)=>{
-    e.preventDefault();
-    overlay.style.display = 'flex';
-  });
-  function closePopup(){ overlay.style.display = 'none' }
-  document.getElementById('mailCompose').addEventListener('click', ()=>{
-    // mailto aç ve popup'ı kapat
-    window.location.href = 'mailto:eymenaltay28@gmail.com?subject=Web%20sitenden%20iletişim';
-    closePopup();
-  });
-
-  // --- INSTAGRAM: Eğer EmbedSocial kodunu eklersen çoğu zaman script kendi iframe'ini oluşturur
-  // (burada sunucu tarafı veya GitHub Actions ile güncelleme yapılmasına gerek kalmaz)
-  // Kullanıcı EmbedSocial'dan aldığın <div class="embedsocial-instagram"...> kodunu
-  // yukarıdaki <!-- EMBEDSOCIAL INSERT HERE --> yerine yapıştır.
-
-  // --- Extra: küçük connectivity check, eğer YouTube iframe blocked ise loader fallback için kontrol
-  const bgIframe = document.getElementById('bgVideo');
-  bgIframe.addEventListener && bgIframe.addEventListener('load', ()=> {
-    // video iframe yüklendiğinde isteğe bağlı işlem (çoğu tarayıcı cross-origin nedeniyle 'load' yakalayamayabilir)
-    // yine de loader fallback + window.load ile güvence sağlanıyor
-    console.log('bg iframe load event (cross-origin olabilir)');
+  // Accessibility: escape to close modals
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape'){
+      if(emailBackdrop.style.display==='flex') closeEmail();
+      if(modalBackdrop.style.display==='flex') closePanel();
+    }
   });
 
-  // Eğer istersen: günlük otomatik güncelleme için GitHub Actions senaryosu kurabiliriz.
-  // Bu client-side kod şu an sadece embed kodunu göstermek için yer bırakır.
+  // If you want to change bg-image URL dynamically:
+  // document.querySelector('.bg-img').src = 'YOUR_URL_HERE';
+
 </script>
 </body>
 </html>
