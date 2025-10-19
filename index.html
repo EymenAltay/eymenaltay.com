@@ -5,39 +5,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eymen Altay</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+    :root {
+      --mavi: #009dff;
+      --acikMavi: #a0e7ff;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-    body, html { height: 100%; overflow: hidden; }
 
-    /* Video arka plan */
-    .video-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
+    body, html {
       height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-    .video-bg iframe {
-      width: 100%;
-      height: 100%;
+      overflow: hidden;
+      color: var(--mavi);
     }
 
-    /* İçerik */
-    .content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      color: white;
+    /* Hareketli arka plan */
+    body {
+      background: linear-gradient(120deg, #a0e7ff, #ffffff, #d0f0ff);
+      background-size: 300% 300%;
+      animation: gradientShift 15s ease infinite;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      text-align: center;
     }
 
-    h1 { font-size: 3rem; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-    p { margin-top: 10px; color: #e3f4ff; }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Dalga animasyonu */
+    .waves {
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+      height: 150px;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(0,157,255,0.3),
+        rgba(0,157,255,0.3) 10px,
+        rgba(0,157,255,0.1) 10px,
+        rgba(0,157,255,0.1) 20px
+      );
+      animation: waveMove 5s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes waveMove {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    h1 {
+      font-size: 3rem;
+      z-index: 2;
+    }
+
+    p {
+      margin-top: 10px;
+      z-index: 2;
+      color: var(--mavi);
+    }
 
     /* Sosyal medya */
     .socials {
@@ -47,8 +79,14 @@
       transform: translateX(-50%);
       display: flex;
       gap: 20px;
+      z-index: 2;
     }
-    .socials a img { width: 32px; height: 32px; filter: brightness(1) invert(1); transition: transform 0.3s ease; }
+    .socials a img {
+      width: 32px;
+      height: 32px;
+      filter: brightness(1);
+      transition: transform 0.3s ease;
+    }
     .socials a:hover img { transform: scale(1.1); }
 
     /* Menü */
@@ -60,9 +98,10 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+      z-index: 2;
     }
     .menu button {
-      background: rgba(255,255,255,0.1);
+      background: rgba(0,157,255,0.1);
       border: none;
       padding: 10px;
       border-radius: 10px;
@@ -70,7 +109,7 @@
       transition: all 0.3s ease;
     }
     .menu button:hover {
-      background: rgba(255,255,255,0.2);
+      background: rgba(0,157,255,0.2);
       transform: scale(1.05);
     }
 
@@ -86,7 +125,7 @@
       border-radius: 12px;
       text-align: center;
       display: none;
-      z-index: 10;
+      z-index: 3;
       transition: all 0.4s ease;
       max-width: 400px;
       box-shadow: 0 0 25px rgba(0,0,0,0.4);
@@ -98,29 +137,24 @@
 </head>
 <body>
 
-  <!-- Video arka plan -->
-  <div class="video-bg">
-    <iframe src="https://www.youtube.com/embed/CgieXSaeLp8?autoplay=1&mute=1&loop=1&playlist=CgieXSaeLp8&controls=0&showinfo=0&modestbranding=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  <div class="waves"></div>
+
+  <h1>Eymen Altay</h1>
+  <p>İzmir / Türkiye</p>
+
+  <div class="socials">
+    <a href="https://www.instagram.com/eymen.altay/" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/instagram.svg"></a>
+    <a href="https://www.youtube.com/@eymenaltay8196" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/youtube.svg"></a>
+    <a href="#" id="email"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/gmail.svg"></a>
+    <a href="https://open.spotify.com/user/31mdrrgk3d4mjmi5yrmol3dqujey" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/spotify.svg"></a>
+    <a href="https://discord.com/channels/@dr.peroxide" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/discord.svg"></a>
+    <a href="https://steamcommunity.com/id/doctorperoxide/" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/steam.svg"></a>
   </div>
 
-  <div class="content">
-    <h1>Eymen Altay</h1>
-    <p>İzmir / Türkiye</p>
-
-    <div class="socials">
-      <a href="https://www.instagram.com/eymen.altay/" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/instagram.svg"></a>
-      <a href="https://www.youtube.com/@eymenaltay8196" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/youtube.svg"></a>
-      <a href="#" id="email"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/gmail.svg"></a>
-      <a href="https://open.spotify.com/user/31mdrrgk3d4mjmi5yrmol3dqujey" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/spotify.svg"></a>
-      <a href="https://discord.com/channels/@dr.peroxide" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/discord.svg"></a>
-      <a href="https://steamcommunity.com/id/doctorperoxide/" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/steam.svg"></a>
-    </div>
-
-    <div class="menu">
-      <button onclick="openPopup('Özgeçmiş')">🧭</button>
-      <button onclick="openPopup('Kariyer Planlaması')">⚓</button>
-      <button onclick="openPopup('Hobiler')">🌊</button>
-    </div>
+  <div class="menu">
+    <button onclick="openPopup('Özgeçmiş')">🧭</button>
+    <button onclick="openPopup('Kariyer Planlaması')">⚓</button>
+    <button onclick="openPopup('Hobiler')">🌊</button>
   </div>
 
   <div class="popup" id="popup">
