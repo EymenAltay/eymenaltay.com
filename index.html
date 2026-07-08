@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eymen Altay</title>
-    <!-- Google Fonts üzerinden şık bir yazı tipi ekledik -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-    <!-- Instagram İkonu için FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -20,19 +18,19 @@
             font-family: 'Poppins', sans-serif;
             background: radial-gradient(circle at center, #1e1e24 0%, #0f0f12 100%);
             color: #ffffff;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             align-items: center;
-            padding: 40px 20px;
-            overflow: hidden;
+            justify-content: flex-start; /* İçeriğin yukarıdan aşağı doğru akmasını sağlar */
+            padding: 60px 20px 20px 20px;
+            overflow-y: auto; /* Sayfanın gerektiğinde kaydırılabilmesini sağlar */
         }
 
         /* Üst Kısım - İsim */
         header {
             text-align: center;
-            margin-top: 20px;
+            margin-bottom: 40px;
         }
 
         header h1 {
@@ -46,14 +44,13 @@
             text-shadow: 0 10px 20px rgba(255, 123, 0, 0.15);
         }
 
-        /* Orta Kısım - Çalışma Var İçeriği */
+        /* Orta Kısım - Ana İçerik Alanı */
         main {
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            flex-grow: 1;
+            margin-bottom: 50px; /* Alttaki copyright alanıyla mesafeyi korur */
         }
 
         /* Dönen Şık Efekt (Spinner) */
@@ -86,16 +83,10 @@
             color: #888888;
             max-width: 400px;
             line-height: 1.6;
+            margin-bottom: 35px; /* Metinden sonra butona geçiş mesafesi */
         }
 
-        /* Alt Kısım - Instagram Butonu */
-        footer {
-            margin-bottom: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
+        /* Instagram Butonu - Artık orta alanda, daha yukarıda */
         .instagram-btn {
             display: inline-flex;
             align-items: center;
@@ -120,8 +111,22 @@
             font-size: 1.2rem;
         }
 
-        /* Mobil Uyumluluk Değişikliği */
+        /* Alt Kısım - Soluk ve Küçük Copyright Yazısı */
+        footer {
+            margin-top: auto; /* Sayfa uzunsa her zaman en alta iter */
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .copyright {
+            font-size: 0.75rem;
+            color: #444444; /* Soluk font rengi */
+            letter-spacing: 0.5px;
+        }
+
+        /* Mobil Uyumluluk */
         @media (max-width: 480px) {
+            body { padding-top: 40px; }
             header h1 { font-size: 2rem; }
             main h2 { font-size: 1.4rem; }
             main p { font-size: 0.9rem; }
@@ -130,23 +135,22 @@
 </head>
 <body>
 
-    <!-- Üst Orta: İsim -->
     <header>
         <h1>Eymen Altay</h1>
     </header>
 
-    <!-- Orta Alan: Yapım Aşamasında Bilgisi -->
     <main>
         <div class="loader"></div>
         <h2>Çalışma Devam Ediyor</h2>
         <p>Sitemiz şu anda güncellenmektedir. Çok yakında yeni yüzümüzle hizmetinizdeyiz.</p>
-    </main>
-
-    <!-- Alt Kısım: Instagram Yönlendirmesi -->
-    <footer>
+        
         <a href="https://instagram.com/eymen.altay" target="_blank" class="instagram-btn">
             <i class="fab fa-instagram"></i> @eymen.altay
         </a>
+    </main>
+
+    <footer>
+        <p class="copyright">&copy; Ocak 2025 Eymen Altay. Tüm Hakları Saklıdır.</p>
     </footer>
 
 </body>
