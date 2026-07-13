@@ -70,8 +70,9 @@
         /* --- GİRİŞ EKRANI (HERO SECTION) --- */
         .hero {
             height: 100vh;
-            background: linear-gradient(135deg, rgba(10, 25, 47, 0.95), rgba(23, 42, 69, 0.9)), 
-                        url('https://images.unsplash.com/photo-1516937941344-00b4e0337589?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            /* Arka plan kaptan köşkü çizimiyle değiştirildi, belirginlik için opaklık 0.75'e çekildi */
+            background: linear-gradient(135deg, rgba(10, 25, 47, 0.8), rgba(23, 42, 69, 0.75)), 
+                        url('https://images.unsplash.com/photo-1505705694340-019e1e335916?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -174,6 +175,21 @@
             flex: 2;
         }
 
+        /* Profil Fotoğrafı Stili */
+        .profile-pic-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
         /* Sidebar Elemanları */
         .sidebar-brand {
             text-align: center;
@@ -226,6 +242,31 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             margin-bottom: 2px;
+        }
+
+        /* PDF İndirme Butonu Stili */
+        .btn-download {
+            width: 100%;
+            background: transparent;
+            border: 2px dashed var(--accent);
+            color: var(--accent);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .btn-download:hover {
+            background: var(--accent);
+            color: var(--primary);
+            border-style: solid;
         }
 
         .badge-list li {
@@ -440,6 +481,31 @@
                 right: 10px;
             }
         }
+
+        /* --- YAZDIRMA (PDF) AYARLARI --- */
+        @media print {
+            .lang-switcher, .hero, .btn-download, .site-footer {
+                display: none !important;
+            }
+            body {
+                background-color: #fff;
+            }
+            .main-container {
+                margin: 0;
+                padding: 0;
+                gap: 20px;
+            }
+            .cv-sidebar {
+                box-shadow: none;
+                background-color: #0a192f !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .cv-section {
+                box-shadow: none;
+                padding: 20px 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -465,6 +531,11 @@
     <div class="main-container" id="cv">
         
         <aside class="cv-sidebar">
+            <!-- PROFİL FOTOĞRAFI ALANI -->
+            <div class="profile-pic-container">
+                <img src="https://i.ibb.co/68vDhmqP/eymen-altay.jpg" alt="Eymen Altay" class="profile-pic">
+            </div>
+
             <div class="sidebar-brand">
                 <h2>Eymen ALTAY</h2>
                 <span id="sidebar-sub">Gemici / Stajyer</span>
@@ -477,6 +548,11 @@
                     <li><strong>E-Posta</strong>eymenaltay28@gmail.com</li>
                     <li><strong id="label-location">Konum</strong>Balçova / İzmir</li>
                 </ul>
+                
+                <!-- PDF OLARAK İNDİRME BUTONU -->
+                <button class="btn-download" onclick="downloadPDF()" id="btn-download-text">
+                    ⚓ CV'yi PDF Olarak İndir
+                </button>
             </div>
 
             <div class="info-block">
@@ -499,7 +575,7 @@
                 <ul class="info-list badge-list" style="border-left-color: #e74c3c;">
                     <li style="border-left: none; background: rgba(231, 76, 60, 0.1); padding: 12px;">
                         <span id="health-text">Güverte görevleri için tam sağlığa elverişlidir.</span>
-                        <span style="color: #74C365; font-weight: bold; margin-top: 5px;" id="health-expiry">Son sağlık kontrolü geçerlilik tarihi,29.07.2026</span>
+                        <span style="color: #ff7675; font-weight: bold; margin-top: 5px;" id="health-expiry">⚠️ Sağlık Kontrolü Periyodu: 29.07.2026 öncesi</span>
                     </li>
                 </ul>
             </div>
@@ -510,7 +586,7 @@
             <section class="cv-section">
                 <h2 class="section-title" id="sec-vision">Vizyon & Kariyer İdealleri</h2>
                 <p class="text-p" id="vision-p">
-                    11 Nisan 2008 tarihinde İzmir'de doğdum ve tüm temel akademik eğitimlerimi bu şehirde tamamladım. Denizlere olan tutkum, küçük yaşlarda dedemin teknesinde geçirdiğim zamanlar ve deniz havasını solumamla birlikte kalıcı bir yaşam amacına dönüştü. Hayatımı adadığım bu yoldaki en büyük và nihai hedefim, uluslararası sularda seyreden devasa kruvaziyer gemilerinde Süvari Bey (Kaptan) olarak görev yapmak, operasyonel süreçleri yönetmek ve Türk denizcisinin niteliğini dünya ölçeğinde temsil etmektir.
+                    11 Nisan 2008 tarihinde İzmir'de doğdum ve tüm temel akademik eğitimlerimi bu şehirde tamamladım. Denizlere olan tutkum, küçük yaşlarda dedemin teknesinde geçirdiğim zamanlar và deniz havasını solumamla birlikte kalıcı bir yaşam amacına dönüştü. Hayatımı adadığım bu yoldaki en büyük và nihai hedefim, uluslararası sularda seyreden devasa kruvaziyer gemilerinde Süvari Bey (Kaptan) olarak görev yapmak, operasyonel süreçleri yönetmek ve Türk denizcisinin niteliğini dünya ölçeğinde temsil etmektir.
                 </p>
             </section>
 
@@ -573,7 +649,7 @@
 
     <!-- SITE EN ALTI COPYRIGHT ALANI -->
     <footer class="site-footer">
-        <p id="footer-text">© 2025 Ocak Eymen Altay. Tüm Hakları Saklıdır.</p>
+        <p id="footer-text">© 2025 - 2026 Eymen Altay. Tüm Hakları Saklıdır.</p>
     </footer>
 
     <!-- --- DİL DEĞİŞTİRME JAVASCRIPT KODU --- -->
@@ -596,7 +672,8 @@
                 langDesc: "Denizcilik Endüstrisi Terimleri",
                 titleHealth: "Sağlık Durumu",
                 healthText: "Güverte görevleri için tam sağlığa elverişlidir.",
-                healthExpiry: "Son sağlık kontrolü geçerlilik tarihi,29.07.2026",
+                healthExpiry: "⚠️ Sağlık Kontrolü Periyodu: 29.07.2026 öncesi",
+                btnDownload: "⚓ CV'yi PDF Olarak İndir",
                 secVision: "Vizyon & Kariyer İdealleri",
                 visionP: "11 Nisan 2008 tarihinde İzmir'de doğdum ve tüm temel akademik eğitimlerimi bu şehirde tamamladım. Denizlere olan tutkum, küçük yaşlarda dedemin teknesinde geçirdiğim zamanlar ve deniz havasını solumamla birlikte kalıcı bir yaşam amacına dönüştü. Hayatımı adadığım bu yoldaki en büyük ve nihai hedefim, uluslararası sularda seyreden devasa kruvaziyer gemilerinde Süvari Bey (Kaptan) olarak görev yapmak, operasyonel süreçleri yönetmek ve Türk denizcisinin niteliğini dünya ölçeğinde temsil etmektir.",
                 secExp: "Mesleki Deneyim",
@@ -622,7 +699,7 @@
                 c7: "Belirlenmiş Güvenlik Görevleri Eğitimi",
                 ct1: "14.06.2029", ct2: "14.06.2029", ct3: "14.06.2029", ct4: "14.06.2029",
                 ct5: "Güncel", ct6: "Güncel", ct7: "Güncel",
-                footerText: "© 2025 Ocak Eymen Altay. Tüm Hakları Saklıdır."
+                footerText: "© 2025 - 2026 Eymen Altay. Tüm Hakları Saklıdır."
             },
             en: {
                 heroSub: "Ocean-Going Captain Candidate & Seaman",
@@ -641,7 +718,8 @@
                 langDesc: "Maritime Industry Terminology",
                 titleHealth: "Medical Status",
                 healthText: "Fully fit for deck duties.",
-                healthExpiry: "Last health check validity, 29.07.2026",
+                healthExpiry: "⚠️ Medical Fitness Review Period: Before 29.07.2026",
+                btnDownload: "⚓ Download CV as PDF",
                 secVision: "Vision & Career Objectives",
                 visionP: "Born in Izmir on April 11, 2008, I completed all my core academic education in this maritime city. My lifelong passion for the oceans ignited during my childhood spending time on my grandfather's vessel. My ultimate vision is to command large-scale cruise liners navigating international waters as Master Mariner (Captain), leading complex operational protocols, and representing the prestige of Turkish seafarers globally.",
                 secExp: "Professional Experience",
@@ -667,13 +745,13 @@
                 c7: "Designated Security Duties Training",
                 ct1: "14.06.2029", ct2: "14.06.2029", ct3: "14.06.2029", ct4: "14.06.2029",
                 ct5: "Current", ct6: "Current", ct7: "Current",
-                footerText: "© 2025 January Eymen Altay. All Rights Reserved."
+                footerText: "© 2025 - 2026 Eymen Altay. All Rights Reserved."
             }
         };
 
         function switchLang(lang) {
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            if(event) event.target.classList.add('active');
+            if(event && event.target) event.target.classList.add('active');
 
             document.documentElement.lang = lang;
 
@@ -694,6 +772,7 @@
             document.getElementById('title-health').innerText = langData[lang].titleHealth;
             document.getElementById('health-text').innerText = langData[lang].healthText;
             document.getElementById('health-expiry').innerText = langData[lang].healthExpiry;
+            document.getElementById('btn-download-text').innerText = langData[lang].btnDownload;
             
             document.getElementById('sec-vision').innerText = langData[lang].secVision;
             document.getElementById('vision-p').innerText = langData[lang].visionP;
@@ -717,6 +796,11 @@
                 document.getElementById(`c${i}`).innerText = langData[lang][`c${i}`];
                 document.getElementById(`ct${i}`).innerText = langData[lang][`ct${i}`];
             }
+        }
+
+        // PDF İndirme Fonksiyonu
+        function downloadPDF() {
+            window.print();
         }
     </script>
 </body>
