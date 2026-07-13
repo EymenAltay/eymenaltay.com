@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eymen Altay | Uzakyol Kaptan Adayı</title>
+    
+    <!-- TARAYICI SEKMESİ İÇİN ÇAPA İKONU (FAVICON) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f1c40f'><path d='M12 2a3 3 0 0 0-3 3 3 3 0 0 0 1 2.23V9H8a4 4 0 0 0-4 4v1a1 1 0 0 0 2 0v-1a2 2 0 0 1 2-2h2v7.17A4.47 4.47 0 0 0 7.5 16a4.5 4.5 0 0 0-4.5 4.5 1 1 0 0 0 2 0 2.5 2.5 0 0 1 2.5-2.5 2.49 2.49 0 0 1 2.5 2.5 1 1 0 0 0 2 0V12h2v6.17a2.49 2.49 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 1 1 0 0 0 2 0 4.5 4.5 0 0 0-4.5-4.5 4.47 4.47 0 0 0-2.5 1.17V11h2a2 2 0 0 1 2 2v1a1 1 0 0 0 2 0v-1a4 4 0 0 0-4-4h-2V7.23A3 3 0 0 0 15 5a3 3 0 0 0-3-3zm0 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2z'/></svg>">
+
     <style>
         :root {
             --primary: #0a192f;
@@ -392,6 +396,21 @@
             font-weight: 600;
         }
 
+        /* --- COPYRIGHT ALANI (FOOTER) --- */
+        .site-footer {
+            background-color: var(--primary);
+            color: #94a3b8;
+            text-align: center;
+            padding: 25px 20px;
+            font-size: 0.9rem;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .site-footer p {
+            letter-spacing: 0.5px;
+        }
+
         /* --- ANİMASYONLAR --- */
         @keyframes fadeInUp {
             from {
@@ -425,6 +444,7 @@
 </head>
 <body>
 
+    <!-- Dil Değiştirme Butonları -->
     <div class="lang-switcher">
         <button class="lang-btn active" onclick="switchLang('tr')">TR</button>
         <button class="lang-btn" onclick="switchLang('en')">EN</button>
@@ -455,7 +475,7 @@
                 <ul class="info-list">
                     <li><strong id="label-phone">Telefon</strong>(+90) 530 077 60 08</li>
                     <li><strong>E-Posta</strong>eymenaltay28@gmail.com</li>
-                    <li><strong id="label-location">Konum</strong>İzmir / Türkiye</li>
+                    <li><strong id="label-location">Konum</strong>Balçova / İzmir</li>
                 </ul>
             </div>
 
@@ -479,7 +499,7 @@
                 <ul class="info-list badge-list" style="border-left-color: #e74c3c;">
                     <li style="border-left: none; background: rgba(231, 76, 60, 0.1); padding: 12px;">
                         <span id="health-text">Güverte görevleri için tam sağlığa elverişlidir.</span>
-                        <span style="color: #ff7675; font-weight: bold; margin-top: 5px;" id="health-expiry">⚠️ Sağlık Kontrolü Periyodu: 29.07.2026 öncesi</span>
+                        <span style="color: #74C365; font-weight: bold; margin-top: 5px;" id="health-expiry">Son sağlık kontrolü geçerlilik tarihi,29.07.2026</span>
                     </li>
                 </ul>
             </div>
@@ -490,7 +510,7 @@
             <section class="cv-section">
                 <h2 class="section-title" id="sec-vision">Vizyon & Kariyer İdealleri</h2>
                 <p class="text-p" id="vision-p">
-                    11 Nisan 2008 tarihinde İzmir'de doğdum ve tüm temel akademik eğitimlerimi bu şehirde tamamladım. Denizlere olan tutkum, küçük yaşlarda dedemin teknesinde geçirdiğim zamanlar ve deniz havasını solumamla birlikte kalıcı bir yaşam amacına dönüştü. Hayatımı adadığım bu yoldaki en büyük ve nihai hedefim, uluslararası sularda seyreden devasa kruvaziyer gemilerinde Süvari Bey (Kaptan) olarak görev yapmak, operasyonel süreçleri yönetmek ve Türk denizcisinin niteliğini dünya ölçeğinde temsil etmektir.
+                    11 Nisan 2008 tarihinde İzmir'de doğdum ve tüm temel akademik eğitimlerimi bu şehirde tamamladım. Denizlere olan tutkum, küçük yaşlarda dedemin teknesinde geçirdiğim zamanlar ve deniz havasını solumamla birlikte kalıcı bir yaşam amacına dönüştü. Hayatımı adadığım bu yoldaki en büyük và nihai hedefim, uluslararası sularda seyreden devasa kruvaziyer gemilerinde Süvari Bey (Kaptan) olarak görev yapmak, operasyonel süreçleri yönetmek ve Türk denizcisinin niteliğini dünya ölçeğinde temsil etmektir.
                 </p>
             </section>
 
@@ -551,6 +571,12 @@
         </main>
     </div>
 
+    <!-- SITE EN ALTI COPYRIGHT ALANI -->
+    <footer class="site-footer">
+        <p id="footer-text">© 2025 - 2026 Eymen Altay. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <!-- --- DİL DEĞİŞTİRME JAVASCRIPT KODU --- -->
     <script>
         const langData = {
             tr: {
@@ -570,7 +596,7 @@
                 langDesc: "Denizcilik Endüstrisi Terimleri",
                 titleHealth: "Sağlık Durumu",
                 healthText: "Güverte görevleri için tam sağlığa elverişlidir.",
-                healthExpiry: "Sağlık Kontrolü Periyodu: 29.07.2026 öncesinde yenilenmelidir.",
+                healthExpiry: "Son sağlık kontrolü geçerlilik tarihi,29.07.2026",
                 secVision: "Vizyon & Kariyer İdealleri",
                 visionP: "11 Nisan 2008 tarihinde İzmir'de doğdum ve tüm temel akademik eğitimlerimi bu şehirde tamamladım. Denizlere olan tutkum, küçük yaşlarda dedemin teknesinde geçirdiğim zamanlar ve deniz havasını solumamla birlikte kalıcı bir yaşam amacına dönüştü. Hayatımı adadığım bu yoldaki en büyük ve nihai hedefim, uluslararası sularda seyreden devasa kruvaziyer gemilerinde Süvari Bey (Kaptan) olarak görev yapmak, operasyonel süreçleri yönetmek ve Türk denizcisinin niteliğini dünya ölçeğinde temsil etmektir.",
                 secExp: "Mesleki Deneyim",
@@ -595,7 +621,8 @@
                 c6: "Güvenlik Farkındalık Belgesi",
                 c7: "Belirlenmiş Güvenlik Görevleri Eğitimi",
                 ct1: "14.06.2029", ct2: "14.06.2029", ct3: "14.06.2029", ct4: "14.06.2029",
-                ct5: "Güncel", ct6: "Güncel", ct7: "Güncel"
+                ct5: "Güncel", ct6: "Güncel", ct7: "Güncel",
+                footerText: "© 2025 - 2026 Eymen Altay. Tüm Hakları Saklıdır."
             },
             en: {
                 heroSub: "Ocean-Going Captain Candidate & Seaman",
@@ -614,7 +641,7 @@
                 langDesc: "Maritime Industry Terminology",
                 titleHealth: "Medical Status",
                 healthText: "Fully fit for deck duties.",
-                healthExpiry: "Medical Fitness Review Period: Should Be Renewed Before 29.07.2026",
+                healthExpiry: "Last health check validity, 29.07.2026",
                 secVision: "Vision & Career Objectives",
                 visionP: "Born in Izmir on April 11, 2008, I completed all my core academic education in this maritime city. My lifelong passion for the oceans ignited during my childhood spending time on my grandfather's vessel. My ultimate vision is to command large-scale cruise liners navigating international waters as Master Mariner (Captain), leading complex operational protocols, and representing the prestige of Turkish seafarers globally.",
                 secExp: "Professional Experience",
@@ -639,19 +666,17 @@
                 c6: "Security Awareness Certificate",
                 c7: "Designated Security Duties Training",
                 ct1: "14.06.2029", ct2: "14.06.2029", ct3: "14.06.2029", ct4: "14.06.2029",
-                ct5: "Current", ct6: "Current", ct7: "Current"
+                ct5: "Current", ct6: "Current", ct7: "Current",
+                footerText: "© 2025 - 2026 Eymen Altay. All Rights Reserved."
             }
         };
 
         function switchLang(lang) {
-            // Aktif buton stilini değiştir
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if(event) event.target.classList.add('active');
 
-            // HTML lang niteliğini güncelle
             document.documentElement.lang = lang;
 
-            // Metinleri Güncelle
             document.getElementById('hero-sub').innerText = langData[lang].heroSub;
             document.getElementById('btn-cv-text').innerText = langData[lang].btnCv;
             document.getElementById('sidebar-sub').innerText = langData[lang].sidebarSub;
@@ -686,8 +711,8 @@
             document.getElementById('future-p').innerHTML = langData[lang].futureP;
             
             document.getElementById('sec-certs').innerText = langData[lang].secCerts;
+            document.getElementById('footer-text').innerText = langData[lang].footerText;
             
-            // Sertifikalar
             for(let i=1; i<=7; i++) {
                 document.getElementById(`c${i}`).innerText = langData[lang][`c${i}`];
                 document.getElementById(`ct${i}`).innerText = langData[lang][`ct${i}`];
